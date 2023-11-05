@@ -10,7 +10,7 @@ model = model_from_json(model_json)
 model.load_weights("model.h5")
 
 colors = []
-for i in range(0,20):
+for a in range(0,20):
     colors.append((245,117,16))
 print(len(colors))
 def prob_viz(res, actions, input_frame, colors,threshold):
@@ -38,7 +38,7 @@ with mp_hands.Hands(
     min_tracking_confidence=0.5) as hands:
     while cap.isOpened():
 
-        # Read feed
+        # Read feed input
         ret, frame = cap.read()
 
         # Make detections
@@ -49,9 +49,9 @@ with mp_hands.Hands(
         image, results = mediapipe_detection(cropframe, hands)
         # print(results)
         
-        # Draw landmarks
+        # Draw landmarks for mediapipe processing
         # draw_styled_landmarks(image, results)
-        # 2. Prediction logic
+        # LOGIC FOR THE PREDICTION
         keypoints = extract_keypoints(results)
         sequence.append(keypoints)
         sequence = sequence[-30:]
@@ -88,11 +88,11 @@ with mp_hands.Hands(
         cv2.putText(frame,"Output: -"+' '.join(sentence)+''.join(accuracy), (3,30), 
                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
         
-        # Show to screen
+        # Show feed in the screen
         cv2.imshow('OpenCV Feed', frame)
 
-        # Break gracefully
+        # Break off seamlessly
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
     cap.release()
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows() #close the windows

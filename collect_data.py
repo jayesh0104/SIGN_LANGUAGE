@@ -3,7 +3,8 @@ import os
 import cv2
 cap=cv2.VideoCapture(0)
 directory='Image/'
-while True:
+z=1
+while z==1 :
     _,frame=cap.read()
     count = {
              'a': len(os.listdir(directory+"/A")),
@@ -65,6 +66,7 @@ while True:
     cv2.imshow("ROI",frame[40:400,0:300])
     frame=frame[40:400,0:300]
     interrupt = cv2.waitKey(10)
+    #we define if conditions for every single letter's recognition
     if interrupt & 0xFF == ord('a'):
         cv2.imwrite(directory+'A/'+str(count['a'])+'.png',frame)
     if interrupt & 0xFF == ord('b'):
@@ -120,4 +122,4 @@ while True:
 
 
 cap.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows() #close all the windows

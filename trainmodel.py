@@ -4,6 +4,8 @@ from keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from keras.callbacks import TensorBoard
+# keras is used for the implementation of a neural network
+# we use scikit module for the actual ai macchine learning part
 label_map = {label:num for num, label in enumerate(actions)}
 # print(label_map)
 sequences, labels = [], []
@@ -19,7 +21,11 @@ for action in actions:
 X = np.array(sequences)
 y = to_categorical(labels).astype(int)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05)
-
+#in the above line the image library for  alphabets is divided into a test and train folder, 
+# the train folder is 19 times the test folder to ensure a wide variety of information for training
+#the trained ai is tested on the test folder
+#we havent implemented a shuffle function as we felt it was unnecessary due to the small scale of the project
+# for a large amount of images we must always shuffle and strtify for good practice
 log_dir = os.path.join('Logs')
 tb_callback = TensorBoard(log_dir=log_dir)
 model = Sequential()
